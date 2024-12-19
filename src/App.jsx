@@ -20,6 +20,13 @@ function App() {
     setLoading(false);
   };
 
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault(); 
+      handleSubmit();
+    }
+  };
+
   return (
     <main className="flex flex-col min-h-screen justify-center items-center bg-gray-900 text-white font-sans">
       <h1 className="text-4xl font-bold text-green-400 mb-6">Cahaya AI</h1>
@@ -29,6 +36,7 @@ function App() {
           className="py-3 px-4 text-md rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-green-400"
           id="content"
           type="text"
+          onKeyDown={handleKeyDown} 
         />
         <button
           onClick={handleSubmit}
