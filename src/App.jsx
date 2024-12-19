@@ -28,7 +28,7 @@ function App() {
   };
 
   return (
-    <main className="flex flex-col min-h-screen justify-center items-center bg-gray-900 text-white font-sans">
+    <main className="flex flex-col min-h-screen justify-center items-center text-white font-sans">
       <h1 className="text-4xl font-bold text-green-400 mb-6">Cahaya AI</h1>
       <form className="flex flex-col gap-4 w-full max-w-lg px-4">
         <input
