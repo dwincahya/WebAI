@@ -2,40 +2,60 @@ import { useState } from "react";
 import "./App.css";
 import { requestToAI } from "./utils/api";
 import { Light as SyntaxHighlight } from "react-syntax-highlighter";
-import { darcula } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { vs2015 } from "react-syntax-highlighter/dist/esm/styles/hljs";
+
+function Loading() {
+  return <div className="text-green-400 font-bold">Loading...</div>;
+}
 
 function App() {
-  const [data, setData] = useState("")
+  const [data, setData] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
-    const ai = await requestToAI(content.value);
+    setLoading(true);
+    const contentInput = document.getElementById("content");
+    const ai = await requestToAI(contentInput.value);
     setData(ai);
+    setLoading(false);
   };
 
   return (
-    <main className="flex flex-col min-h-[80vh] justify-center items-center max-w-xl w-full mx-auto">
-      <h1 className="text-4xl text-indigo-500">Cahaya AI</h1>
-      <form className="flex flex-col gap-4 py-4 w-full">
+    <main className="flex flex-col min-h-screen justify-center items-center bg-gray-900 text-white font-sans">
+      <h1 className="text-4xl font-bold text-green-400 mb-6">Cahaya AI</h1>
+      <form className="flex flex-col gap-4 w-full max-w-lg px-4">
         <input
           placeholder="Ketik permintaan disini..."
-          className="py-2 px-4 text-md rounded-md"
+          className="py-3 px-4 text-md rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-green-400"
           id="content"
           type="text"
         />
         <button
           onClick={handleSubmit}
           type="button"
-          className="bg-indigo-500 py-2 px-4 font-bold text-white rounded-md"
+          className="bg-green-500 py-2 px-4 font-bold text-white rounded-md hover:bg-green-600 transition-all flex justify-center items-center"
+          disabled={loading}
         >
-          Kirim
+          {loading ? <Loading /> : "Kirim"}
         </button>
       </form>
-      <div className="max-w-xl w-full mx-auto">
-        {data ?
-      <SyntaxHighlight language="swift" style={darcula} wrapLongLines={true}>
-        {data}
-      </SyntaxHighlight>
-      : null}
+      <div className="max-w-lg w-full px-4 mt-6">
+        {data ? (
+          <SyntaxHighlight
+            language="swift"
+            style={vs2015}
+            wrapLongLines
+            customStyle={{
+              backgroundColor: "#1e1e1e",
+              borderRadius: "8px",
+              padding: "16px",
+              whiteSpace: "pre-wrap",
+              textAlign: "left",
+            }}
+          >
+            {data}
+          </SyntaxHighlight>
+        ) : null}
       </div>
     </main>
   );
