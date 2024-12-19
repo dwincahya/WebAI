@@ -1,18 +1,18 @@
 import { useState } from "react";
 import "./App.css";
-import { requestToGroqAI } from "./utils/groq";
+import { requestToAI } from "./utils/api";
 
 function App() {
   const [data, setData] = useState("")
 
   const handleSubmit = async () => {
-    const ai = await requestToGroqAI(content.value);
+    const ai = await requestToAI(content.value);
     setData(ai);
   };
 
   return (
     <main className="flex flex-col min-h-[80vh] justify-center items-center">
-      <h1 className="text-4xl text-indigo-500">REACT|GROQ AI</h1>
+      <h1 className="text-4xl text-indigo-500">Cahaya AI</h1>
       <form className="flex flex-col gap-4 py-4">
         <input
           placeholder="Ketik permintaan disini..."

@@ -7,7 +7,7 @@ const groq = new Groq({
   dangerouslyAllowBrowser: true,
 });
 
-export const requestToGroqAI = async(content) => {
+export const requestToAI = async(content) => {
     const reply = await groq.chat.completions.create({
         messages: [{
             role: "user",
